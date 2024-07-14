@@ -9,15 +9,16 @@
 struct ParserResults {
   std::string input_filename;
   std::string output_filename;
-  std::vector<FilterDescription> filters;
+  std::vector<FilterParams> filters;
 };
 
 class Parser {
  private:
   ParserResults _res{};
+  void PrintHelp();
   void ParseFilters(std::vector<std::string> &prompt);
   void CheckFilters() const;
  public:
-  void Parse(char **argv);
+  bool Parse(char **argv);
   [[nodiscard]] ParserResults GetRes() const;
 };

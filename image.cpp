@@ -38,13 +38,10 @@ std::unordered_map<std::string, int32_t> Image::GetSize() const {
 }
 
 void Image::Resize(int32_t new_height, int32_t new_width) {
-  RGBMatrix new_matrix(new_height, std::vector<RGB>(new_width));
-  for (int row = 0; row < std::min(this->_height, new_height); ++row) {
-    for (int idx = 0; idx < std::min(this->_width, new_width); ++idx) {
-      new_matrix[row][idx] = this->_matrix[row][idx];
-    }
+  this->_matrix.resize(new_height, std::vector<RGB>(new_width));
+  for (int i = 0; i < std::min(this->_height, new_height); ++i) {
+    this->_matrix[i].resize(new_width);
   }
-  this->_matrix = new_matrix;
   this->_height = new_height;
   this->_width = new_width;
 }

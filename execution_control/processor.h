@@ -20,6 +20,6 @@ class Processor {
   };
   std::vector<std::unique_ptr<BaseFilter>> _filters;
  public:
-  void CreateFilters(std::vector<FilterDescription> &filter_descs);
+  void CreateFilters(std::vector<FilterParams> &filter_descs);
   void ApplyFilters(Image &img);
 };

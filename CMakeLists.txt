@@ -3,7 +3,6 @@ project(image_processor)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
-include_directories(${PROJECT_SOURCE_DIR})
 
 add_executable(
         image_processor
@@ -37,3 +36,6 @@ add_executable(
         exceptions.cpp
         exceptions.h
 )
+
+target_include_directories(image_processor
+        PUBLIC ${PROJECT_SOURCE_DIR})

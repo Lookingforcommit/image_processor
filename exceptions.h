@@ -6,7 +6,17 @@
 
 #include "execution_control/shared_structures.h"
 
-class InvalidFilterException : public std::exception {
+class CustomException : public std::exception {};
+
+class InvalidCommandFormatException : public CustomException {
+ private:
+  const std::string MSG{"Invalid command format, the correct format is:\n" + COMMAND_FORMAT};
+ public:
+  [[nodiscard]] const char *what() const
+  noexcept override{return MSG.c_str();};
+};
+
+class InvalidFilterException : public CustomException {
  private:
   const std::string_view FORMAT{"Invalid filter '{}', list of valid filters:\n"};
   std::string _msg;
@@ -16,7 +26,7 @@ class InvalidFilterException : public std::exception {
   noexcept override{return this->_msg.c_str();};
 };
 
-class IncorrectFilterArgsCntException : public std::exception {
+class IncorrectFilterArgsCntException : public CustomException {
  private:
   const std::string_view FORMAT{"Incorrect filter arguments count for filter '{}', the correct count is {}"};
   std::string _msg;
@@ -26,7 +36,7 @@ class IncorrectFilterArgsCntException : public std::exception {
   noexcept override{return this->_msg.c_str();};
 };
 
-class InvalidFilterArgsFormatException : public std::exception {
+class InvalidFilterArgsFormatException : public CustomException {
  private:
   const std::string FORMAT{"Incorrect filter arguments format for filter '{}'"};
   std::string _msg;
@@ -36,7 +46,7 @@ class InvalidFilterArgsFormatException : public std::exception {
   noexcept override{return this->_msg.c_str();};
 };
 
-class FileOpenException : public std::exception {
+class FileOpenException : public CustomException {
  private:
   const std::string FORMAT{"Unable to open file '{}'"};
   std::string _msg;
@@ -46,7 +56,7 @@ class FileOpenException : public std::exception {
   noexcept override{return this->_msg.c_str();};
 };
 
-class InvalidImageFormatException : public std::exception {
+class InvalidImageFormatException : public CustomException {
  private:
   const std::string FORMAT{"Invalid input image format of '{}'"};
   std::string _msg;

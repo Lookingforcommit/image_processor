@@ -7,14 +7,14 @@
 
 InvalidFilterException::InvalidFilterException(const std::string &filter) {
   this->_msg = std::vformat(FORMAT, std::make_format_args(filter));
-  for (auto &valid_filter : VALID_FILTERS) {
+  for (auto &[valid_filter, filter_info] : FILTERS_INFO) {
     this->_msg.append(valid_filter);
     this->_msg.push_back('\n');
   }
 }
 
 IncorrectFilterArgsCntException::IncorrectFilterArgsCntException(const std::string &filter) {
-  int correct_cnt = FILTER_ARGS_CNT.find(filter)->second;
+  int correct_cnt = FILTERS_INFO.find(filter)->second.args_cnt;
   this->_msg = std::vformat(FORMAT, std::make_format_args(filter, correct_cnt));
 }
 
